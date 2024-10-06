@@ -1,0 +1,360 @@
+html,body {
+   margin: 0; 
+   width: 100%; 
+   height: 100%; 
+   background: #c7e5ef;
+   
+  }
+
+#scene-container
+{
+    display: inline-block;
+    width: 100%;
+    height: 70%;
+    overflow-y: hidden;
+}
+
+#model
+{
+  display: inline-block;
+  width: calc(100% - 2px);
+  height: calc(30% - 5px);
+  margin-left: 2px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+    border-radius: 5px;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+  .loader
+  {
+    display: none;
+     /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+  }
+
+  .spinner-content
+  {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: fit-content;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .spinner-el {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    animation: spin 2s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+  #model-controls{
+    display: inline-block;
+    height: calc(100% - 5px);
+    overflow: auto;
+  }
+
+  #scene_controls{
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .model_name_div{
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 3px;
+    margin-bottom: 2px;
+  }
+
+  #add_cubemap_form{
+    border: 1px solid grey;
+    text-align: center;
+    padding: 2px;
+  }
+
+  #audio
+  {
+    display: inline-block;
+    vertical-align: middle;
+    width: 280px;
+    height: 30px;
+  }
+
+  .iframe-input
+  {
+    width: 50px;
+  }
+
+
+
+  
+
+
+  
+  input[type=file] {
+    /* padding: 4px;
+    margin: -4px; */
+    position: relative;
+    outline: none;
+    /* File Selector Button Styles */
+    /* Faked label styles and icon */
+    /* Handle Component Focus */
+  }
+  input[type=file]::file-selector-button {
+    border-radius: 4px;
+    /* padding: 0 10px; */
+    height: 30px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 5px;
+    /*
+      This is a hack to change the button label. 
+      I'm hiding the default label and then 
+      manually applying the width based on 
+      updated icon and label.
+    */
+    width: 132px;
+    color: transparent;
+    /*
+      Firefox doesn't support the pseudo ::before 
+      or ::after elements on this input field so 
+      we need to use the @supports rule to enable 
+      default styles fallback for Firefox.
+    */
+  }
+  @supports (-moz-appearance: none) {
+    input[type=file]::file-selector-button {
+      color: var(--primary-color);
+    }
+  }
+  input[type=file]::file-selector-button:hover {
+    background-color: #f3f4f6;
+  }
+  input[type=file]::file-selector-button:active {
+    background-color: #e5e7eb;
+  }
+  input[type=file]::before {
+    position: absolute;
+    pointer-events: none;
+    top: 6px;
+    left: 16px;
+    height: 20px;
+    width: 20px;
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230964B0'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+  }
+  input[type=file]::after {
+    position: absolute;
+    pointer-events: none;
+    top: 9px;
+    left: 40px;
+    color: var(--primary-color);
+    content: "Upload File";
+  }
+  input[type=file]:focus-within::file-selector-button, input[type=file]:focus::file-selector-button {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+
+
+  .save-scene-area
+  {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+
+  label
+  {
+    font-weight: bold;
+  }
+
+  input[type=checkbox], input[type="range"], input[type="color"]   {
+    /* padding: 4px;
+    margin: -4px; */
+    display: inline-block;
+    vertical-align: middle;
+    /* File Selector Button Styles */
+    /* Faked label styles and icon */
+    /* Handle Component Focus */
+  }
+
+  .input-section
+  {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .save-scene-button
+  {
+    font-size: 25px;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    background-color: #0075ff;
+    margin-bottom: 5px;
+  }
+  #add_cubemap
+  {
+    font-size: 16px;
+    margin-bottom: 2px;
+
+  }
+
+  #model-controls {
+    /* parent rule style properties */
+    & label{
+      /* child rule style properties */
+      font-weight: unset;
+    }
+  }
+
+
+  .check-img
+  {
+    vertical-align: text-bottom;
+    margin-left: 2px;
+    display: inline-block;
+  }
+
+
+  #iframe-code
+  {
+    background: #c7e5ef;
+    border-radius: 5px;
+  }
+
+
+  @media (width <= 500px) {
+    #model-controls {
+      display: inline-block;
+      height: 250px;
+      overflow: auto;
+    }
+  }
+
+
+
+  input[type="number"]
+  {
+    width: 40px;
+  }
+
+
+
+  .onclick_iframe
+  {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: none;
+  }
+
+  .onclick_iframe_container
+  {
+    /* width: 500px;
+    height: 500px; */
+    position: absolute;
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: none; */
+    
+  }
+  
+  .close_onclick_iframe_button
+  {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #c7e5ef;
+  }
+
+  .iframe_audio
+  {
+    display: none;
+  }
+
+  input{
+    margin-bottom: 2px;
+  }
+
+  .model-controls-container
+  {
+    border: 1px solid grey;
+    border-radius: 2px;
+    padding: 3px;
+  }
+
+  .close-model-button
+  {
+    color: red;
+    border: none;
+    border-radius: 50%;
+    font-weight: bold;
+  }

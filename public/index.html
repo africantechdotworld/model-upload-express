@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<title>Upload app</title>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+        <link rel="stylesheet" href="/style.css" />
+		<!-- <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/libs/fflate.min.js"></script>
+        <script src="https://unpkg.com/three@0.140.0/build/three.min.js" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/three@0.140.0/examples/js/loaders/GLTFLoader.js"></script>
+		<script src="https://unpkg.com/three@0.140.0/examples/js/loaders/FBXLoader.js"></script>
+		<script src="https://unpkg.com/three@0.140.0/examples/js/controls/OrbitControls.js"></script>
+		<script src="https://unpkg.com/three@0.140.0/examples/js/exporters/GLTFExporter.js"></script> -->
+		<script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/libs/fflate.min.js"></script></head>
+        <script src="https://unpkg.com/three@0.140.0/build/three.min.js"></script>
+		<script src="https://unpkg.com/three@0.140.0/examples/js/loaders/GLTFLoader.js"></script>
+		<script src="https://unpkg.com/three@0.140.0/examples/js/loaders/FBXLoader.js"></script>
+		<script src="https://unpkg.com/three@0.140.0/examples/js/controls/OrbitControls.js"></script>
+		<script src="https://unpkg.com/three@0.145.0/examples/js/exporters/GLTFExporter.js"></script>
+
+        <script type="module" src="/index.js"></script>
+        
+        <div id = "scene-container"></div>
+
+		<div id="model">
+
+
+			<div id="scene_controls">
+				<div class="input-section">
+					<label for="model-uploader">Upload model in .glb or .fbx format:</label>
+					<input type="file" id="model-uploader" accept=".gltf, .glb, .fbx" />
+				</div>
+				<div class="input-section">
+					<label for="audio-upload">Upload audio:</label>
+					<input type="file" id="audio-upload" accept="audio/*" />
+					<audio id="audio" controls>
+						<source src="" id="audio-src" />
+					</audio>
+				</div>
+
+				<div class="input-section">
+					<label for="colorpicker">Scene background color:</label>
+					<input type="color" id="colorpicker" value="#808080">
+					<label for="image_background">Scene background image:</label>
+					<input type="file" id="image_background" accept="image/*">
+				</div>
+
+				<div class="input-section">
+					<form id="add_cubemap_form">
+						<div class="input-section">
+							<label for="px">Cubemap px: </label>
+							<input type="file" id = "px" accept="image/*" name="px" required>
+
+
+							<label for="nx">Cubemap nx: </label>
+							<input type="file" id = "nx" accept="image/*" name="nx" required>
+						</div>
+
+
+						<div class="input-section">
+							<label for="py">Cubemap py: </label>
+							<input type="file" id = "py" accept="image/*" name="py" required>
+
+
+							<label for="ny">Cubemap ny: </label>
+							<input type="file" id = "ny" accept="image/*" name="ny" required>
+						</div>
+
+
+						<div class="input-section">
+							<label for="pz">Cubemap pz: </label>
+							<input type="file" id = "pz" accept="image/*" name="pz" required>
+
+
+							<label for="nz">Cubemap nz: </label>
+							<input type="file" id = "nz" accept="image/*" name="nz" required>
+						</div>
+
+						<button id="add_cubemap" type="submit">Add cubemap background <img src="icons/check.png" width="15px" height="15px" class="check-img"></button>
+
+
+
+					</form>
+			</div>
+
+			</div>
+
+
+
+			<div id="model-controls">		
+			</div>
+
+			<div class="save-scene-area">
+				<div class="input-section">
+					<label for="loop_audio">
+						Loop scene audio:
+						<input type="checkbox" id="loop_audio" checked></input>
+					</label>
+				</div>
+				<div class="input-section">
+					<label for="animation_autoplay_checkbox">
+						Autoplay animations: 
+					<input type="checkbox" id="animation_autoplay_checkbox" >
+					</label>
+				</div>
+
+				<div class="input-section">
+					<label for="individual_animation_buttons_checkbox">
+						Add individual animation play buttons:
+					<input type="checkbox" id="individual_animation_buttons_checkbox" checked>
+					</label>
+				</div>
+
+				<div class="input-section">
+					<label for="intensity">Light intensity:
+						<input type="range" id="intensity" value="1" step="0.1" min="0" max="5">
+					</label>
+				</div>
+
+				<div class="input-section">
+					<label for="platform">Platform:
+						<input type="checkbox" id="platform" checked>
+					</label>
+				</div>
+				
+
+
+				<div class="input-section">
+					<label for="iframe">Export result as an iframe:
+						<input type="checkbox" id="iframe" >
+					</label>
+				</div>
+
+				<div class="input-section">
+					<label for="iframewidth">iFrame's width:
+						<input type="number" id="iframewidth" class="iframe-input" min="0" step="1" value="100" pattern="[0-9]{10}" oninput="this.value = Math.round(this.value);" disabled>
+					</label>
+					<label for="iframeheight">iFrame's height:
+						<input type="number" id="iframeheight" class="iframe-input" min="0" step="1" value="100" pattern="[0-9]{10}" oninput="this.value = Math.round(this.value);" disabled>
+					</label>
+				</div>
+
+				<!-- <label for="iframeFromLeft">iFrame's position (form left):
+					<input type="number" id="iframeFromLeft" class="iframe-input" min="0" disabled>
+				</label>
+
+				<label for="iframeFromTop">iFrame's position (form top):
+					<input type="number" id="iframeFromTop" class="iframe-input" min="0" disabled>
+				</label> -->
+
+				<button id="save-scene" type="button" class="save-scene-button">Save Scene</button>
+				
+			</div>
+
+
+
+
+
+
+
+		</div>
+
+		<div class="loader" id = "spinner">
+			<div class="spinner-content">
+				<h1>Uploading files...</h1>
+				<p>Please wait for a while, we'll get back to you when we are done with uploading all the assests into the server</p>
+				<div class="spinner-el">
+				</div>
+			</div>
+
+		</div>
+
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+
+			<!-- Modal content -->
+			<div class="modal-content">
+			<span class="close">&times;</span>
+			<h1>Your scene is available</h1>
+			Link:
+			<a id="modal_text" href=""></a>
+			<div id="modal_iframe_text">
+				<p>You can copy the code below to emmbed the scene into your site: </p>
+				<div id="iframe-code"></div>
+			</div>
+			</div>
+		
+		</div>
+
+		<!--  Example: src="https://www.google.com/webhp?igu=1" -->
+
+		
+
+	</body>
+	
+</html>

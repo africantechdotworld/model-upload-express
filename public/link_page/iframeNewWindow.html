@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>New window Iframe</title>
+
+        <style>
+            html,body{
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                overflow-y: hidden;
+            }
+            #iframe
+            {
+                width: 100%;
+                height: 100%;
+            }
+            #iframe_audio{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+
+
+
+        <iframe id = "iframe" src="" frameborder="0"></iframe>
+
+        <audio id="iframe_audio">
+			<source src="" id="iframe-audio-src" />
+		</audio>
+
+        <script>
+            const queryString = window.location.search;
+            console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+            //const encoded_url = urlParams.get('url');
+
+            
+            
+            
+            const encoded_url = queryString.split("&url=")[1];
+            console.log("encoded_url", encoded_url)
+            
+            const decoded_url = decodeURI(encoded_url);
+            console.log("decoded_url", decoded_url)
+
+            document.getElementById("iframe").src = decoded_url;
+
+            const audio_url = urlParams.get('sound');
+            const audio_loop = urlParams.get('loop_audio');
+            console.log("audio_loop", audio_loop)
+            if(audio_url)
+            {
+                const decoded_audio_url = decodeURI(audio_url);
+                document.getElementById("iframe-audio-src").src = decoded_audio_url;
+                document.getElementById("iframe_audio").load();
+                document.getElementById("iframe_audio").play();
+                document.getElementById("iframe_audio").loop = audio_loop == "true";
+            }
+
+        </script>
+    </body>
+</html>
